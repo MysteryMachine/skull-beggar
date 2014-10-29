@@ -1,32 +1,79 @@
 <div class="row activity-panel">
-	<div class="col-md-4 big-text bottom-12px">
-		<span>
-				{{health()}} / {{maxHealth()}}
-		</span>
-		<span>
-			<img class="money" alt="heart photo"
-			 src="/images/heart.png">
-			</img>
-		</span>
+	<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-4 big-text bottom-12px">
+				<span>
+						{{health()}} / {{maxHealth()}}
+				</span>
+				<span>
+					<img class="heart" alt="heart photo"
+					 src="/images/heart.png">
+					</img>
+				</span>
+					
+				<span>
+					{{cash()}}
+				</span>
+				<span>
+					<img class="money" alt="money photo"
+					 src="/images/Penny.png">
+					</img>
+				</span>
+			</div>
 			
-		<span>
-			{{cash()}}
-		</span>
-		<span>
-			<img class="money" alt="money photo"
-			 src="/images/Penny.png">
-			</img>
-		</span>
-	</div>
-	
-	
-	<div class="col-md-3 bottom-12px">
-		<div ng-if="owner && inactive()">
-			<button class="btn btn-xs reactive-btn"> Open Betting </button>
+			
+			<div ng-if="inactive()">
+				<div ng-if="owner">
+					<div class="col-md-4 bottom-12px">
+						<button class="btn btn-xs reactive-btn"
+						 ng-click="openBetting()"> Open Betting </button>
+					</div>
+					
+					<div class="col-md-4"></div>
+				</div>
+				
+				<div ng-if="!owner" class="col-md-8"></div>
+			</div>
+			
+			<div ng-if="betting()" class="col-md-8">
+				<div class="row">
+					<div ng-if="owner">
+						<div class="col-md-4 bottom-12px">
+							<button class="btn btn-xs reactive-btn"
+							 ng-click="closeBetting()"> End Betting </button>
+						</div>
+					</div>
+  		  	
+					<div class="col-md-4 bottom-12px" ng-if="!acted() && !maxHealthy()">
+						<button class="btn btn-xs reactive-btn"
+						 ng-click="rest()"> Rest </button>
+					</div>
+					<div class="col-md-4 bottom-12px" ng-if="!acted() && healthy()">
+						<button class="btn btn-xs reactive-btn"
+						 ng-click="donateBlood()"> Donate Blood </button>
+					</div>
+					
+					<div ng-if="!owner" class="col-md-4"></div>
+				</div>
+			</div>
+			
+			<div ng-if="waiting()">
+				<div ng-if="owner">
+					<div class="col-md-4 bottom-12px">
+						<button class="btn btn-xs reactive-btn"
+						 ng-click="completeBetting()"> Complete Betting </button>
+					</div>
+					
+					<div class="col-md-4 bottom-12px">
+						<button class="btn btn-xs reactive-btn"
+						 ng-click="invalidateBetting()"> Invalidate Round </button>
+					</div>
+				</div>
+				
+				<div ng-if="!owner" class="col-md-8"></div>
+			</div>
 		</div>
 	</div>
-
-	<div class="col-md-2"></div>
 	
 	<div class="col-md-3 bottom-12px">
 		<div>

@@ -97,7 +97,8 @@ function($resource, $location, $timeout){
   }.bind(api);
   
   var loaded = function(){
-    return this.$scope.user && this.$scope.channel;
+    return angular.isDefined(this.$scope.user) 
+      && angular.isDefined(this.$scope.channel);
   }.bind(api);
   
   api["Omniauth"] = {
@@ -110,20 +111,20 @@ function($resource, $location, $timeout){
     'get': { method: 'GET', withCredentials: true }
   });
   
-  api["ChannelAccount"] = $resource(root + "/channel_account/:id.json", {id: '@id'}, {
-    'get': { method: 'GET' },
-    'setInactive': { method: 'POST', url: root + "/channel_accounts/:id/set_inactive.json", withCredentials: true },
-    'openBetting': { method: 'POST', url: root + "/channel_accounts/:id/open_betting.json", withCredentials: true },
-    'closeBetting': { method: 'POST', url: root + "/channel_accounts/:id/close_betting.json", withCredentials: true },
-    'completeBetting': { method: 'POST', url: root + "/channel_accounts/:id/complete_betting.json", withCredentials: true }
-  });
-  
-  api["Channel"] = $resource(root + "/channels/:id.json", {id: '@id'},{
+  api["Channel"] = $resource(root + "/channels/:id.json", {id: '@id'}, {
     'create': { method: 'POST', url: root + "/channels.json", withCredentials: true },
     'get': { method: 'GET', url: root + "/channels/:name.json", withCredentials: true },
-    'rest': { method: 'POST', url: root + "/channels/:id/rest.json", withCredentials: true },
-    'donateBlood': { method: 'POST', url: root + "/channels/:id/donate_blood.json", withCredentials: true },
-    'bet': { method: 'POST', url: root + "/channels/:id/bet.json", withCredentials: true }
+    'setInactive': { method: 'POST', url: root + "/channels/:id/set_inactive.json", withCredentials: true },
+    'openBetting': { method: 'POST', url: root + "/channels/:id/open_betting.json", withCredentials: true },
+    'closeBetting': { method: 'POST', url: root + "/channels/:id/close_betting.json", withCredentials: true },
+    'completeBetting': { method: 'POST', url: root + "/channels/:id/complete_betting.json", withCredentials: true }
+  });
+  
+  api["ChannelAccount"] = $resource(root + "/channel_accounts/:id.json", {id: '@id'},{
+    'get': { method: 'GET' },
+    'rest': { method: 'POST', url: root + "/channel_accounts/:id/rest.json", withCredentials: true },
+    'donateBlood': { method: 'POST', url: root + "/channel_accounts/:id/donate_blood.json", withCredentials: true },
+    'bet': { method: 'POST', url: root + "/channel_accounts/:id/bet.json", withCredentials: true }
   });
   
   // Does all the initial backend queries
@@ -145,7 +146,7 @@ function(skullApi){
   
   var channelExistsAndStatus = function(status){
     return $scope.loaded && 
-      $scope.channel.channel_account.status === status;
+      $scope.channel.status === status;
   };
   
   var inactive = function(){
@@ -158,6 +159,19 @@ function(skullApi){
   
   var waiting = function(){
     return channelExistsAndStatus("betting_closed");
+  };
+  
+  var acted = function(){
+    return $scope.channel.channel_account.status !== "inactive";
+  };
+  
+  var healthy = function(){
+    return $scope.channel.channel_account.health > 1;
+  };
+  
+  var maxHealthy = function(){
+    return $scope.channel.channel_account.health ===
+      $scope.channel.channel_account.max_health;
   };
   
   var placeholderText = function(){
@@ -191,6 +205,78 @@ function(skullApi){
     }  
   };
   
+  var openBetting = function(){
+    skullApi.Channel.openBetting({
+      id: $scope.channel.id
+    }, function(response){
+      $scope.channel = response;
+    }, function(response){
+      console.log("TO DO: handle open betting failure")
+    })
+  };
+  
+  var closeBetting = function(){
+    skullApi.Channel.closeBetting({
+      id: $scope.channel.id
+    }, function(response){
+      $scope.channel = response;
+    }, function(response){
+      console.log("TO DO: handle close betting failure")
+    })
+  };
+  
+  var completeBetting = function(){
+    skullApi.Channel.completeBetting({
+      id: $scope.channel.id
+    }, function(response){
+      $scope.channel = response;
+    }, function(response){
+      console.log("TO DO: handle close betting failure")
+    })
+  };
+  
+  var invalidateBetting = function(){
+    skullApi.Channel.setInactive({
+      id: $scope.channel.id
+    }, function(response){
+      $scope.channel = response;
+    }, function(response){
+      console.log("TO DO: handle close betting failure")
+    })
+  };
+  
+  var rest = function(){
+    skullApi.ChannelAccount.rest({
+      id: $scope.channel.channel_account.id
+    }, function(response){
+      $scope.channel.channel_account = response;
+    }, function(response){
+      console.log("TO DO: handle close betting failure")
+    })
+  };
+  
+  var donateBlood = function(){
+    skullApi.ChannelAccount.donateBlood({
+      id: $scope.channel.channel_account.id
+    }, function(response){
+      $scope.channel.channel_account = response;
+    }, function(response){
+      console.log("TO DO: handle close betting failure")
+    })
+  };
+  
+  var bet = function(enemy_id, amount){
+    skullApi.ChannelAccount.bet({
+      id: $scope.channel.channel_account.id,
+      enemy_id: enemy_id,
+      amount: amount
+    }, function(response){
+      $scope.channel.channel_account = response;
+    }, function(response){
+      console.log("TO DO: handle close betting failure")
+    })
+  };
+  
   var initializer = {
     initialize: function(scope){
       $scope = scope;
@@ -198,11 +284,23 @@ function(skullApi){
       $scope.inactive = inactive;
       $scope.betting = betting
       $scope.waiting = waiting;
+      $scope.acted = acted;
+      $scope.healthy = healthy;
+      $scope.maxHealthy = maxHealthy;
       
       $scope.placeholderText = placeholderText;
       $scope.cash = cash;
       $scope.health = health;
       $scope.maxHealth = maxHealth;
+      
+      $scope.openBetting = openBetting;
+      $scope.closeBetting = closeBetting;
+      $scope.completeBetting = completeBetting;
+      $scope.invalidateBetting = invalidateBetting;
+      
+      $scope.rest = rest;
+      $scope.donateBlood = donateBlood;
+      $scope.bet = bet;
       
       $scope.rootUrl = "localhost:4000";
       $scope.streamUrl = "";
