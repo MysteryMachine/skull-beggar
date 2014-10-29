@@ -1,0 +1,30 @@
+<html>
+
+	<head>
+		<link rel="stylesheet" href="/css/colors.min.css">
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/skull-beggar.css">
+		<title> SKULL BEGGAR </title>
+	</head>
+	
+	<body ng-app="skullBeggar" class="white skull-beggar">
+		
+		<div class="container-fluid skull-beggar" ng-controller="skullController">
+			
+			<logo-panel></logo-panel>
+			<activity-panel></activity-panel>
+			
+			<inactive-panel ng-if="inactive()"></inactive-panel>
+			<betting-panel ng-if="betting()"></betting-panel>
+			<waiting-panel ng-if="waiting()"></waiting-panel>
+			
+		</div>
+
+		<script type="text/javascript" src="/js/angular.min.js"></script>
+		<script type="text/javascript" src="/js/angular-resource.min.js"></script>
+		<script type="text/javascript" src="/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+		<script type="text/javascript" src="/js/skull-beggar.js"></script>
+		
+	</body>
+	
+</html>

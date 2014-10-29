@@ -1,0 +1,40 @@
+<div class="row activity-panel">
+	<div class="col-md-4 big-text bottom-12px">
+		<span>
+				{{health()}} / {{maxHealth()}}
+		</span>
+		<span>
+			<img class="money" alt="heart photo"
+			 src="/images/heart.png">
+			</img>
+		</span>
+			
+		<span>
+			{{cash()}}
+		</span>
+		<span>
+			<img class="money" alt="money photo"
+			 src="/images/Penny.png">
+			</img>
+		</span>
+	</div>
+	
+	
+	<div class="col-md-3 bottom-12px">
+		<div ng-if="owner && inactive()">
+			<button class="btn btn-xs reactive-btn"> Open Betting </button>
+		</div>
+	</div>
+
+	<div class="col-md-2"></div>
+	
+	<div class="col-md-3 bottom-12px">
+		<div>
+			<input type="text" 
+			 class="form-control skull-input" 
+			 placeholder="{{placeholderText()}}" 
+			 ng-model="searchText"
+			 ng-disabled="!betting()"/>
+		</div>
+	</div>
+</div>

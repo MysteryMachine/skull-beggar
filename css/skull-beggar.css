@@ -1,0 +1,100 @@
+@font-face{
+  font-family: blocky;
+  src: url(/fonts/Minercraftory.ttf);
+}
+
+@font-face{
+  font-family: pixel;
+  src: url(/fonts/FreePixel.ttf);
+  font-weight: bold;
+}
+
+body.skull-beggar{
+  font-size: 24px;
+  line-height: 1;
+  background-color: #5C4033;
+  color: #222;
+  font-family: blocky;
+}
+
+p{
+  font-family: pixel;
+}
+
+button.reactive-btn{
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+}
+
+button.btn, button.btn:focus{
+  background-color: #85144B;
+  color: #fff;
+  font-family: pixel;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.43;
+}
+
+button.btn:hover, button.btn:active{
+  background-color: #700038;
+  color: #fff;
+  font-family: pixel;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.43;
+}
+
+a{
+  color: #85144B;
+}
+
+input.skull-input{
+  border-radius: 2px;
+  font-family: blocky;
+}
+
+div.panel{
+  background-color: #8B7765;
+  border: 0px solid;
+  border-radius: 2px;
+  padding: 12px;
+  margin: 10px -4px 10px -4px;
+}
+
+div.activity-panel{
+  background-color: #8B7765;
+  border: 0px solid;
+  border-radius: 2px;
+  padding: 12px 12px 0 12px;
+  margin: 10px -4px 10px -4px;
+}
+
+.bottom-12px{
+  padding-bottom: 12px;
+};
+
+.bottom-1{
+  padding-bottom: 10px;
+}
+
+.bottom-2{
+  padding-bottom: 20px;
+}
+
+img.money{
+  margin-left: 8px;
+  margin-top: 10px;
+  margin-right: 1em;
+  width: 34px;
+}
+
+img.enemy{
+  height: 34px;
+}
+
+.big-text{
+  font-size: 24px;
+  font-family: blocky;
+  line-height: 1.43;
+}

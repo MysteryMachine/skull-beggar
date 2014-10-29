@@ -1,0 +1,15 @@
+<div class="row">
+	<div class="col-md-4">
+			<div class="enemy-row row panel" ng-repeat="enemy in enemies">
+				<div class="col-xs-3">
+					<img class="enemy" src="{{enemy.imgUrl}}" placeholder="{{enemy.name}}"></img> 
+				</div>
+				<div class="col-xs-6 text-center">
+					{{enemy.name}}
+				</div>
+				<div class="col-xs-3">
+					<button class="btn" ng-click="betOn(enemy)"> Bet! </button>
+				</div>
+			</div>
+	</div>
+</div>

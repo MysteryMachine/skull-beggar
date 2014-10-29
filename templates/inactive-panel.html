@@ -1,0 +1,38 @@
+<div class="row panel">
+	<div class="col-md-2"></div>
+	
+	<div class="col-md-8 text-center">
+		<div class="bottom-2"> Welcome to Skull Beggar! </div>
+		
+		<p> 
+			{{ owner ? "Your" : "This" }} channel is currently in an inactive 
+			state. This means {{ owner ? "you have" : "the streamer has" }} not 
+			yet opted to allow users to bet on
+			any new games. 
+			<span ng-if="!owner">
+				To check to see if {{ streamerName }} will be playing
+				Skull Roulette anytime soon, click
+				<a href="{{ streamUrl }}" target="_none"> here </a>
+				to be taken to their stream.
+			</span>
+		</p>
+		
+		<p>
+			In Skull Beggar, the streamer opens betting before beginning
+			a Binding of Isaac game. Users are allowed to place a bet
+			on the enemy they believe will be responsible for the streamer's
+			death. The user is also allowed to bet on the streamer winning
+			the game. The streamer then must close betting, and play the game
+			until they win or lose. If some users guessed correctly, the pot is 
+			split evenly between them. If not, bets are returned to the users.
+		</p>
+		
+		<p ng-if="!owner">
+			To create a channel for your own stream, click 
+			<a href="{{ rootUrl }}" target="_self"> here</a>.
+		</p>
+
+	</div>
+	
+	<div class="col-md-2"></div>
+</div>
