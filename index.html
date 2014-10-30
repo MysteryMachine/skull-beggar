@@ -15,7 +15,11 @@
 			<activity-panel></activity-panel>
 			
 			<inactive-panel ng-if="inactive()"></inactive-panel>
-			<betting-panel ng-if="betting()"></betting-panel>
+			<betting-panel 
+			 ng-if="betting()" 
+			 enemies="enemies" 
+			 searchText="searchText">
+		 	</betting-panel>
 			<waiting-panel ng-if="waiting()"></waiting-panel>
 			
 		</div>

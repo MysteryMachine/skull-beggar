@@ -1,0 +1,39 @@
+<div class="row modal-panel">
+	<div class="col-md-12">
+		<div class="big-text bottom-12px">
+			{{enemy.name}}
+		</div>
+		
+		<p> 
+			Bet how much money on {{enemy.name}}?
+			Remember that you can only bet on one
+			enemy each round.
+		</p>
+		
+		<div class="row">
+			<div class="col-md-3 bottom-12px">
+				<span>
+					{{ cash() - betObj.amount }}
+				</span>
+				<span>
+					<img class="money" alt="money photo"
+					 src="/images/Penny.png">
+					</img>
+				</span>
+			</div>
+			<div class="col-md-3 bottom-12px">
+				<input type="number" min="0" max="{{cash()}}"
+				 class="form-control skull-input" 
+				 ng-model="betObj.amount"/>
+			</div>
+			<div class="col-md-3 bottom-12px">
+				<button class="btn btn-xs reactive-btn"
+				 ng-click="cancel()"> Cancel </button>
+			</div>
+			<div class="col-md-3 bottom-12px">
+				<button class="btn btn-xs reactive-btn"
+				 ng-click="save()"> Bet </button>
+			</div>
+		</div>
+	</div>
+</div>

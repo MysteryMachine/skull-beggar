@@ -1,4 +1,4 @@
-var app = angular.module('skullBeggar', ['ngResource']);
+var app = angular.module('skullBeggar', ['ngResource', 'ui.bootstrap']);
 
 app.service('skullApi', 
 ['$resource', '$location', '$timeout', 
@@ -55,6 +55,7 @@ function($resource, $location, $timeout){
   }.bind(api);
   
   var loadChannelPass = function(response){
+    console.log(response)
     this.$scope.channel = response;
     setChannelDataIntoScope();
     $timeout(loadChannel, channelTimeout);
@@ -265,13 +266,14 @@ function(skullApi){
     })
   };
   
-  var bet = function(enemy_id, amount){
+  var bet = function(enemy_id, amount, success, failure){
     skullApi.ChannelAccount.bet({
       id: $scope.channel.channel_account.id,
       enemy_id: enemy_id,
       amount: amount
     }, function(response){
       $scope.channel.channel_account = response;
+      success();
     }, function(response){
       console.log("TO DO: handle close betting failure")
     })
@@ -310,6 +312,32 @@ function(skullApi){
   return initializer;
 }]);
 
+app.service('enemies', [
+function(){
+  return [
+    { id: 0, name: "Test 0", imgUrl: "/images/Dime2.png" },
+    { id: 1, name: "Test 1", imgUrl: "/images/Dime2.png" },
+    { id: 2, name: "Test 2", imgUrl: "/images/Dime2.png" },
+    { id: 3, name: "Test 3", imgUrl: "/images/Dime2.png" },
+    { id: 4, name: "Test 4", imgUrl: "/images/Dime2.png" },
+    { id: 5, name: "Test 5", imgUrl: "/images/Dime2.png" },
+    { id: 6, name: "Test 6", imgUrl: "/images/Dime2.png" },
+    { id: 7, name: "Test 7", imgUrl: "/images/Dime2.png" },
+    { id: 8, name: "Test 8", imgUrl: "/images/Dime2.png" },
+    { id: 9, name: "Test 9", imgUrl: "/images/Dime2.png" },
+    { id: 10, name: "Test 10", imgUrl: "/images/Dime2.png" },
+    { id: 11, name: "Test 11", imgUrl: "/images/Dime2.png" },
+    { id: 12, name: "Test 12", imgUrl: "/images/Dime2.png" },
+    { id: 13, name: "Test 13", imgUrl: "/images/Dime2.png" },
+    { id: 14, name: "Test 14", imgUrl: "/images/Dime2.png" },
+    { id: 15, name: "Test 15", imgUrl: "/images/Dime2.png" },
+    { id: 16, name: "Test 16", imgUrl: "/images/Dime2.png" },
+    { id: 17, name: "Test 17", imgUrl: "/images/Dime2.png" },
+    { id: 18, name: "Test 18", imgUrl: "/images/Dime2.png" },
+    { id: 19, name: "Test 19", imgUrl: "/images/Dime2.png" }
+  ]
+}]);
+
 app.directive('logoPanel', function(){
   return{
     restrict: 'E',
@@ -345,9 +373,46 @@ app.directive('waitingPanel', function(){
   };
 });
 
+app.controller('betModalController', 
+['$scope', '$modalInstance', 'enemy',
+function($scope, $modalInstance, enemy){
+  $scope.enemy = enemy;
+  $scope.betObj = { amount: 0 };
+  
+  $scope.save = function(){
+    console.log($scope)
+    $scope.bet(enemy.id, $scope.betObj.amount, 
+      function(){
+        $modalInstance.dismiss('saved');
+      }, function(){
+        console.log("Todo: handle modal failure")
+      });
+  };
+  
+  $scope.cancel = function(){
+    $modalInstance.dismiss('closed');
+  };
+}]);
+
 app.controller('skullController', 
-[ '$scope', 'skullApi', 'skullHelpers',  
-function($scope, skullApi, skullHelpers){
+[ '$scope', '$modal', 'skullApi', 'skullHelpers', 'enemies',  
+function($scope, $modal, skullApi, skullHelpers, enemies){
   skullApi.initialize($scope);
   skullHelpers.initialize($scope);
+  
+  $scope.enemies = enemies;
+  $scope.search = { text: "" };
+  
+  $scope.betOn = function(enemy){
+    $modal.open({
+      templateUrl: 'templates/betting-modal.html',
+      controller: 'betModalController',
+      scope: $scope, 
+      resolve:{
+        enemy: function(){
+          return enemy;
+        }
+      }
+    });
+  };
 }]);

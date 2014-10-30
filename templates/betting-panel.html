@@ -1,15 +1,12 @@
-<div class="row">
-	<div class="col-md-4">
-			<div class="enemy-row row panel" ng-repeat="enemy in enemies">
-				<div class="col-xs-3">
-					<img class="enemy" src="{{enemy.imgUrl}}" placeholder="{{enemy.name}}"></img> 
-				</div>
-				<div class="col-xs-6 text-center">
-					{{enemy.name}}
-				</div>
-				<div class="col-xs-3">
-					<button class="btn" ng-click="betOn(enemy)"> Bet! </button>
-				</div>
+<div class="row enemy-wrapper">
+	<div class="col-md-4" ng-repeat="enemy in enemies | filter: search.text">
+		<div class="enemy-row row" ng-click="betOn(enemy)">
+			<div class="col-xs-3">
+				<img class="enemy" src="{{enemy.imgUrl}}" placeholder="{{enemy.name}}"></img> 
 			</div>
+			<div class="col-xs-6 text-center">
+				{{enemy.name}}
+			</div>
+		</div>
 	</div>
 </div>
