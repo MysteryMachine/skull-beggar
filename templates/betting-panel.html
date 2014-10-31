@@ -1,6 +1,7 @@
 <div class="row enemy-wrapper">
 	<div class="col-md-4" ng-repeat="enemy in enemies | filter: search.text">
-		<div class="enemy-row row" ng-click="betOn(enemy)">
+		<div class="enemy-row row" ng-click="fun(enemy, $index)" 
+		 ng-class="$index === selected.index ? 'highlight' : ''">
 			<div class="col-xs-3">
 				<img class="enemy" src="{{enemy.imgUrl}}" placeholder="{{enemy.name}}"></img> 
 			</div>

@@ -1,0 +1,46 @@
+<div ng-if="owner && waiting()">
+	<div class="row panel">
+		<div class="col-md-2"></div>
+	
+		<div class="col-md-8 text-center">
+			<p>
+				Once your run is finished, select the outcome of your run
+				below, and click the Complete Betting button.
+			</p>
+		</div>
+		
+		<div class="col-md-2"></div>
+	</div>
+	<betting-panel  
+	 enemies="enemies" 
+	 fun="setLoser"
+	 selected="selected">
+	</betting-panel>
+</div>
+ 
+<div class="row panel" ng-if="activeChannelAccount() && !waiting()">
+	<div class="col-md-2"></div>
+	
+	<div class="col-md-8 text-center">
+		<div class="bottom-2"> Skull Beggar </div>
+		<p>
+			You have already taken an action this turn{{ owner ? ' and you have' : '. The host has' }} 
+			not closed betting yet.
+			<span ng-if="owner">
+				To continue, please click the Close Betting button above, and start playing the
+				game. You should play the game until you either win or lose. Upon losing, select
+				the enemy responsible for your loss. If you win, select the Win option. If you
+				need to cancel betting, after closing betting, you can select the Invalidate 
+				Betting option.
+			</span>
+			<span ng-if="!owner">
+				Please wait for them to close betting, and then watch them
+				<a href="{{ streamUrl }}" target="_none">here</a>. When the player completes
+				the round, they will select the enemy that killed them. If someone bet on that
+				enemy, the total amount betted by all players will be divided evenly between
+				the winning players.
+			</span>
+		</p>
+	</div>
+	<div class="col-md-2"></div>
+</div>

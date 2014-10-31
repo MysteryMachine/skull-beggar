@@ -61,7 +61,8 @@
 				<div ng-if="owner">
 					<div class="col-md-4 bottom-12px">
 						<button class="btn btn-xs reactive-btn"
-						 ng-click="completeBetting()"> Complete Betting </button>
+						 ng-click="completeBetting()"
+						 ng-disabled="!selected.enemy"> Complete Betting </button>
 					</div>
 					
 					<div class="col-md-4 bottom-12px">

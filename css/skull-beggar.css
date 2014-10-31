@@ -115,7 +115,8 @@ div.enemy-row{
   margin: 0 -4px 10px -14px;
 }
 
-div.enemy-row:hover{
+div.enemy-row:hover,
+div.enemy-row.highlight{
   background-color: #2E2722;
   color: #DDD;
   cursor: pointer;

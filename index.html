@@ -16,11 +16,11 @@
 			
 			<inactive-panel ng-if="inactive()"></inactive-panel>
 			<betting-panel 
-			 ng-if="betting()" 
+			 ng-if="betting() && inactiveChannelAccount()" 
 			 enemies="enemies" 
-			 searchText="searchText">
+			 fun="betOn"">
 		 	</betting-panel>
-			<waiting-panel ng-if="waiting()"></waiting-panel>
+			<waiting-panel ng-if="waiting() || activeChannelAccount()"></waiting-panel>
 			
 		</div>
 

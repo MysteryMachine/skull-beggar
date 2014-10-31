@@ -158,6 +158,14 @@ function(skullApi){
     return channelExistsAndStatus("betting_open");
   };
   
+  var inactiveChannelAccount = function(){
+    return $scope.loaded && $scope.channel.channel_account.status === "inactive"
+  };
+  
+  var activeChannelAccount = function(){
+    return $scope.loaded && $scope.channel.channel_account.status !== "inactive"
+  };
+  
   var waiting = function(){
     return channelExistsAndStatus("betting_closed");
   };
@@ -228,9 +236,12 @@ function(skullApi){
   
   var completeBetting = function(){
     skullApi.Channel.completeBetting({
-      id: $scope.channel.id
+      id: $scope.channel.id,
+      enemy_id: $scope.selected.enemy.id
     }, function(response){
       $scope.channel = response;
+      $scope.selected.enemy = null;
+      $scope.selected.index = null;
     }, function(response){
       console.log("TO DO: handle close betting failure")
     })
@@ -286,6 +297,8 @@ function(skullApi){
       $scope.inactive = inactive;
       $scope.betting = betting
       $scope.waiting = waiting;
+      $scope.inactiveChannelAccount = inactiveChannelAccount;
+      $scope.activeChannelAccount = activeChannelAccount;
       $scope.acted = acted;
       $scope.healthy = healthy;
       $scope.maxHealthy = maxHealthy;
@@ -355,7 +368,18 @@ app.directive('activityPanel', function(){
 app.directive('bettingPanel', function(){
   return{
     restrict: 'E',
-    templateUrl: 'templates/betting-panel.html'
+    scope: {
+      enemies: "=",
+      fun: "=",
+      selected: '=?'
+    },
+    templateUrl: 'templates/betting-panel.html',
+    link: function(scope){
+      if(!scope.selected){
+        scope.selected = {};
+      }
+      console.log(scope.selected)
+    }
   };
 });
 
@@ -380,7 +404,6 @@ function($scope, $modalInstance, enemy){
   $scope.betObj = { amount: 0 };
   
   $scope.save = function(){
-    console.log($scope)
     $scope.bet(enemy.id, $scope.betObj.amount, 
       function(){
         $modalInstance.dismiss('saved');
@@ -402,8 +425,9 @@ function($scope, $modal, skullApi, skullHelpers, enemies){
   
   $scope.enemies = enemies;
   $scope.search = { text: "" };
+  $scope.selected = { enemy: null, index: null };
   
-  $scope.betOn = function(enemy){
+  $scope.betOn = function(enemy, index){
     $modal.open({
       templateUrl: 'templates/betting-modal.html',
       controller: 'betModalController',
@@ -414,5 +438,10 @@ function($scope, $modal, skullApi, skullHelpers, enemies){
         }
       }
     });
+  };
+  
+  $scope.setLoser = function(enemy, index){
+    $scope.selected.enemy = enemy;
+    $scope.selected.index = index;
   };
 }]);
