@@ -105,7 +105,7 @@ function($resource, $location, $timeout, $window){
   
   api["Omniauth"] = {
     authorize: function(){
-      $window.location.url = root + "/users/auth/twitch";
+      $window.location = root + "/users/auth/twitch";
     }
   };
   
