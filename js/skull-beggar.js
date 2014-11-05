@@ -523,7 +523,8 @@ app.directive('bettingPanel', function(){
     scope: {
       enemies: "=",
       fun: "=",
-      selected: '=?'
+      selected: '=?',
+      search: '='
     },
     templateUrl: 'templates/betting-panel.html',
     link: function(scope){
