@@ -1,8 +1,8 @@
 var app = angular.module('skullBeggar', ['ngResource', 'ui.bootstrap']);
 
 app.service('skullApi', 
-['$resource', '$location', '$timeout', 
-function($resource, $location, $timeout){
+['$resource', '$location', '$timeout', '$window',
+function($resource, $location, $timeout, $window){
   var root = "http://localhost:3000";
   var channelTimeout = 2000;
   
@@ -55,7 +55,6 @@ function($resource, $location, $timeout){
   }.bind(api);
   
   var loadChannelPass = function(response){
-    console.log(response)
     this.$scope.channel = response;
     setChannelDataIntoScope();
     $timeout(loadChannel, channelTimeout);
@@ -82,6 +81,8 @@ function($resource, $location, $timeout){
   
   var loadUsersChannel = function(){
     $location.search("channel", this.$scope.user.name);
+    this.$scope.channelName = this.$scope.user.name;
+    loadChannel();
   }.bind(api);
   
   // If the creation works, redirect to that channel page, otherwise
@@ -104,7 +105,7 @@ function($resource, $location, $timeout){
   
   api["Omniauth"] = {
     authorize: function(){
-      window.location.href = root + "/users/auth/twitch";
+      $window.location.href = root + "/users/auth/twitch";
     }
   };
   
@@ -328,26 +329,174 @@ function(skullApi){
 app.service('enemies', [
 function(){
   return [
-    { id: 0, name: "Test 0", imgUrl: "/images/Dime2.png" },
-    { id: 1, name: "Test 1", imgUrl: "/images/Dime2.png" },
-    { id: 2, name: "Test 2", imgUrl: "/images/Dime2.png" },
-    { id: 3, name: "Test 3", imgUrl: "/images/Dime2.png" },
-    { id: 4, name: "Test 4", imgUrl: "/images/Dime2.png" },
-    { id: 5, name: "Test 5", imgUrl: "/images/Dime2.png" },
-    { id: 6, name: "Test 6", imgUrl: "/images/Dime2.png" },
-    { id: 7, name: "Test 7", imgUrl: "/images/Dime2.png" },
-    { id: 8, name: "Test 8", imgUrl: "/images/Dime2.png" },
-    { id: 9, name: "Test 9", imgUrl: "/images/Dime2.png" },
-    { id: 10, name: "Test 10", imgUrl: "/images/Dime2.png" },
-    { id: 11, name: "Test 11", imgUrl: "/images/Dime2.png" },
-    { id: 12, name: "Test 12", imgUrl: "/images/Dime2.png" },
-    { id: 13, name: "Test 13", imgUrl: "/images/Dime2.png" },
-    { id: 14, name: "Test 14", imgUrl: "/images/Dime2.png" },
-    { id: 15, name: "Test 15", imgUrl: "/images/Dime2.png" },
-    { id: 16, name: "Test 16", imgUrl: "/images/Dime2.png" },
-    { id: 17, name: "Test 17", imgUrl: "/images/Dime2.png" },
-    { id: 18, name: "Test 18", imgUrl: "/images/Dime2.png" },
-    { id: 19, name: "Test 19", imgUrl: "/images/Dime2.png" }
+    { id: 0, name: "Black Fly", imgUrl: "/images/Penny.png" },
+    { id: 1, name: "Attack Fly", imgUrl: "/images/Penny.png" },
+    { id: 2, name: "Moter", imgUrl: "/images/Penny.png" },
+    { id: 3, name: "Pooter", imgUrl: "/images/Penny.png" },
+    { id: 4, name: "Fat Fly", imgUrl: "/images/Penny.png" },
+    { id: 5, name: "Spider", imgUrl: "/images/Penny.png" },
+    { id: 6, name: "Big Spider", imgUrl: "/images/Penny.png" },
+    { id: 7, name: "Trite", imgUrl: "/images/Penny.png" },
+    { id: 8, name: "Mulligan", imgUrl: "/images/Penny.png" },
+    { id: 9, name: "Mulligoon", imgUrl: "/images/Penny.png" },
+    { id: 10, name: "Mulliboon", imgUrl: "/images/Penny.png" },
+    { id: 11, name: "Hive", imgUrl: "/images/Penny.png" },
+    { id: 12, name: "Hopper", imgUrl: "/images/Penny.png" },
+    { id: 21, name: "Flaming Hopper", imgUrl: "/images/Penny.png" },
+    { id: 13, name: "Pacer", imgUrl: "/images/Penny.png" },
+    { id: 14, name: "Gusher", imgUrl: "/images/Penny.png" },
+    { id: 15, name: "Gaper", imgUrl: "/images/Penny.png" },
+    { id: 16, name: "Frowning Gaper", imgUrl: "/images/Penny.png" },
+    { id: 17, name: "Horf", imgUrl: "/images/Penny.png" },
+    { id: 18, name: "Clotty", imgUrl: "/images/Penny.png" },
+    { id: 19, name: "Clot", imgUrl: "/images/Penny.png" },
+    { id: 20, name: "I. Blob", imgUrl: "/images/Penny.png" },
+    { id: 21, name: "Embryo", imgUrl: "/images/Penny.png" },
+    
+    { id: 101, name: "Boom Fly", imgUrl: "/images/Penny.png" },
+    { id: 102, name: "Red Boom Fly", imgUrl: "/images/Penny.png" },
+    { id: 103, name: "Sucker", imgUrl: "/images/Penny.png" },
+    { id: 104, name: "Spit", imgUrl: "/images/Penny.png" },
+    { id: 105, name: "Boil", imgUrl: "/images/Penny.png" },
+    { id: 106, name: "Gut", imgUrl: "/images/Penny.png" },
+    { id: 107, name: "Sack", imgUrl: "/images/Penny.png" },
+    { id: 108, name: "Walking Boil", imgUrl: "/images/Penny.png" },
+    { id: 109, name: "Walking Gut", imgUrl: "/images/Penny.png" },
+    { id: 110, name: "Walking Sack", imgUrl: "/images/Penny.png" },
+    { id: 111, name: "Swarmer", imgUrl: "/images/Penny.png" },
+    { id: 112, name: "Gurgle", imgUrl: "/images/Penny.png" },
+    { id: 113, name: "Mr. Maw", imgUrl: "/images/Penny.png" },
+    { id: 114, name: "Maw", imgUrl: "/images/Penny.png" },
+    { id: 115, name: "Red Maw", imgUrl: "/images/Penny.png" },
+    { id: 116, name: "Psychic Maw", imgUrl: "/images/Penny.png" },
+    { id: 117, name: "Globin", imgUrl: "/images/Penny.png" },
+    { id: 118, name: "Gazing Globin", imgUrl: "/images/Penny.png" },
+    { id: 119, name: "Maggot", imgUrl: "/images/Penny.png" },
+    { id: 120, name: "Charger", imgUrl: "/images/Penny.png" },
+    { id: 121, name: "Spitty", imgUrl: "/images/Penny.png" },
+    { id: 122, name: "Host", imgUrl: "/images/Penny.png" },
+    { id: 123, name: "Red Host", imgUrl: "/images/Penny.png" },
+    { id: 124, name: "Leech", imgUrl: "/images/Penny.png" },
+    { id: 125, name: "Vis", imgUrl: "/images/Penny.png" },
+    { id: 126, name: "Double Vis", imgUrl: "/images/Penny.png" },
+    { id: 127, name: "Chubber", imgUrl: "/images/Penny.png" },
+    { id: 128, name: "Porky", imgUrl: "/images/Penny.png" },
+    { id: 129, name: "Slide", imgUrl: "/images/Penny.png" },
+    { id: 131, name: "Keeper", imgUrl: "/images/Penny.png" },
+    { id: 132, name: "Hanger", imgUrl: "/images/Penny.png" },
+    { id: 133, name: "Stone Grimace", imgUrl: "/images/Penny.png" },
+    { id: 134, name: "Vomit Grimace", imgUrl: "/images/Penny.png" },
+    { id: 135, name: "B. Licker", imgUrl: "/images/Penny.png" },
+    
+    { id: 201, name: "Leaper", imgUrl: "/images/Penny.png" },
+    { id: 202, name: "Knight", imgUrl: "/images/Penny.png" },
+    { id: 203, name: "Selfless Knight", imgUrl: "/images/Penny.png" },
+    { id: 204, name: "Brain", imgUrl: "/images/Penny.png" },
+    { id: 205, name: "Guts", imgUrl: "/images/Penny.png" },
+    { id: 206, name: "Baby", imgUrl: "/images/Penny.png" },
+    
+    { id: 300, name: "Mask", imgUrl: "/images/Penny.png" },
+    { id: 301, name: "Heart", imgUrl: "/images/Penny.png" },
+    { id: 302, name: "MemBrain", imgUrl: "/images/Penny.png" },
+    { id: 303, name: "Mama Guts", imgUrl: "/images/Penny.png" },
+    { id: 304, name: "Para-Bite", imgUrl: "/images/Penny.png" },
+    { id: 305, name: "Fred", imgUrl: "/images/Penny.png" },
+    { id: 306, name: "Lump", imgUrl: "/images/Penny.png" },
+    { id: 307, name: "Eye", imgUrl: "/images/Penny.png" },
+    { id: 308, name: "Bloodshot Eye", imgUrl: "/images/Penny.png" },
+    { id: 309, name: "Dople", imgUrl: "/images/Penny.png" },
+    { id: 310, name: "Evil Twin", imgUrl: "/images/Penny.png" },
+    
+    { id: 400, name: "Eternal Fly", imgUrl: "/images/Penny.png" },
+    { id: 401, name: "Holy Leech", imgUrl: "/images/Penny.png" },
+    { id: 402, name: "Angelic Baby", imgUrl: "/images/Penny.png" },
+    { id: 403, name: "Hanger", imgUrl: "/images/Penny.png" },
+    { id: 450, name: "Kamikaze Leech", imgUrl: "/images/Penny.png" },
+    
+    { id: 500, name: "The Duke of Flies", imgUrl: "/images/Penny.png" },
+    { id: 501, name: "Gemini", imgUrl: "/images/Penny.png" },
+    { id: 502, name: "Monstro", imgUrl: "/images/Penny.png" },
+    { id: 503, name: "Larry Jr.", imgUrl: "/images/Penny.png" },
+    { id: 504, name: "Famine", imgUrl: "/images/Penny.png" },
+    { id: 505, name: "Steven", imgUrl: "/images/Penny.png" },
+    { id: 506, name: "Widow", imgUrl: "/images/Penny.png" },
+    { id: 507, name: "Pin", imgUrl: "/images/Penny.png" },
+    { id: 508, name: "Blighted Ovum", imgUrl: "/images/Penny.png" },
+    { id: 509, name: "Gurdy Jr.", imgUrl: "/images/Penny.png" },
+    { id: 510, name: "Fistula", imgUrl: "/images/Penny.png" },
+    { id: 511, name: "Gurdy", imgUrl: "/images/Penny.png" },
+    { id: 512, name: "Peep", imgUrl: "/images/Penny.png" },
+    { id: 513, name: "Chub", imgUrl: "/images/Penny.png" },
+    { id: 514, name: "Pestilence", imgUrl: "/images/Penny.png" },
+    { id: 515, name: "C.H.A.D.", imgUrl: "/images/Penny.png" },
+    { id: 516, name: "The Carrion Queen", imgUrl: "/images/Penny.png" },
+    { id: 517, name: "The Husk", imgUrl: "/images/Penny.png" },
+    { id: 518, name: "The Hollow", imgUrl: "/images/Penny.png" },
+    { id: 519, name: "The Wretched", imgUrl: "/images/Penny.png" },
+    { id: 521, name: "Peep", imgUrl: "/images/Penny.png" },
+    { id: 522, name: "Monstro II", imgUrl: "/images/Penny.png" },
+    { id: 523, name: "Loki", imgUrl: "/images/Penny.png" },
+    { id: 524, name: "War", imgUrl: "/images/Penny.png" },
+    { id: 525, name: "Gish", imgUrl: "/images/Penny.png" },
+    { id: 526, name: "Mom", imgUrl: "/images/Penny.png" },
+    { id: 527, name: "Mask of Infamy", imgUrl: "/images/Penny.png" },
+    { id: 528, name: "Daddy Long Legs", imgUrl: "/images/Penny.png" },
+    { id: 529, name: "Triachnid", imgUrl: "/images/Penny.png" },
+    { id: 520, name: "The Bloat", imgUrl: "/images/Penny.png" },
+    { id: 530, name: "Scolex", imgUrl: "/images/Penny.png" },
+    { id: 531, name: "Blastocyst", imgUrl: "/images/Penny.png" },
+    { id: 532, name: "Death", imgUrl: "/images/Penny.png" },
+    { id: 533, name: "Conquest", imgUrl: "/images/Penny.png" },
+    { id: 534, name: "Mom's Heart", imgUrl: "/images/Penny.png" },
+    { id: 535, name: "It Lives", imgUrl: "/images/Penny.png" },
+    { id: 536, name: "Teratoma", imgUrl: "/images/Penny.png" },
+    { id: 537, name: "Lokii", imgUrl: "/images/Penny.png" },
+    { id: 538, name: "Satan", imgUrl: "/images/Penny.png" },
+    { id: 539, name: "Isaac", imgUrl: "/images/Penny.png" },
+    { id: 540, name: "???", imgUrl: "/images/Penny.png" },
+    { id: 541, name: "The Fallen", imgUrl: "/images/Penny.png" },
+    { id: 542, name: "Headless Horseman", imgUrl: "/images/Penny.png" },
+    { id: 543, name: "Krampus", imgUrl: "/images/Penny.png" },
+    
+    { id: 600, name: "Envy", imgUrl: "/images/Penny.png" },
+    { id: 601, name: "Super Envy", imgUrl: "/images/Penny.png" },
+    { id: 602, name: "Gluttony", imgUrl: "/images/Penny.png" },
+    { id: 603, name: "Super Gluttony", imgUrl: "/images/Penny.png" },
+    { id: 604, name: "Greed", imgUrl: "/images/Penny.png" },
+    { id: 605, name: "Super Greed", imgUrl: "/images/Penny.png" },
+    { id: 606, name: "Lust", imgUrl: "/images/Penny.png" },
+    { id: 607, name: "Super Lust", imgUrl: "/images/Penny.png" },
+    { id: 608, name: "Pride", imgUrl: "/images/Penny.png" },
+    { id: 609, name: "Super Pride", imgUrl: "/images/Penny.png" },
+    { id: 610, name: "Ultra Pride", imgUrl: "/images/Penny.png" },
+    { id: 611, name: "Sloth", imgUrl: "/images/Penny.png" },
+    { id: 612, name: "Super Sloth", imgUrl: "/images/Penny.png" },
+    { id: 613, name: "Wrath", imgUrl: "/images/Penny.png" },
+    { id: 614, name: "Super Wrath", imgUrl: "/images/Penny.png" },
+    
+    { id: 900, name: "Blood Machine", imgUrl: "/images/Penny.png" },
+    { id: 901, name: "Demon Beggar", imgUrl: "/images/Penny.png" },
+    { id: 902, name: "Satan Deal", imgUrl: "/images/Penny.png" },
+    { id: 903, name: "Troll Bomb", imgUrl: "/images/Penny.png" },
+    { id: 904, name: "Super Troll Bomb", imgUrl: "/images/Penny.png" },
+    { id: 905, name: "IPECAC", imgUrl: "/images/Penny.png" },
+    { id: 906, name: "Bomb", imgUrl: "/images/Penny.png" },
+    { id: 907, name: "Dr. Fetus", imgUrl: "/images/Penny.png" },
+    { id: 908, name: "Epic Fetus", imgUrl: "/images/Penny.png" },
+    { id: 909, name: "Anarchist Cookbook", imgUrl: "/images/Penny.png" },
+    { id: 910, name: "Bob's Rotten Head", imgUrl: "/images/Penny.png" },
+    { id: 911, name: "Doctor's Remote", imgUrl: "/images/Penny.png" },
+    { id: 912, name: "Kamikaze", imgUrl: "/images/Penny.png" },
+    { id: 913, name: "Mr. Boom", imgUrl: "/images/Penny.png" },
+    { id: 914, name: "Razor Blade", imgUrl: "/images/Penny.png" },
+    { id: 915, name: "Best Friend", imgUrl: "/images/Penny.png" },
+    { id: 916, name: "Blood Rights", imgUrl: "/images/Penny.png" },
+    { id: 917, name: "IV Bag", imgUrl: "/images/Penny.png" },
+    { id: 918, name: "Remote Detonator", imgUrl: "/images/Penny.png" },
+    { id: 919, name: "Fire", imgUrl: "/images/Penny.png" },
+    { id: 920, name: "Red Fire", imgUrl: "/images/Penny.png" },
+    { id: 921, name: "Spikes", imgUrl: "/images/Penny.png" },
+    { id: 922, name: "Curse Room Door", imgUrl: "/images/Penny.png" }
   ]
 }]);
 
@@ -378,7 +527,6 @@ app.directive('bettingPanel', function(){
       if(!scope.selected){
         scope.selected = {};
       }
-      console.log(scope.selected)
     }
   };
 });

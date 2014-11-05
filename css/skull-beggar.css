@@ -113,6 +113,7 @@ div.enemy-row{
   border-radius: 2px;
   padding: 12px;
   margin: 0 -4px 10px -14px;
+  font-size: 16px;
 }
 
 div.enemy-row:hover,
@@ -120,6 +121,7 @@ div.enemy-row.highlight{
   background-color: #2E2722;
   color: #DDD;
   cursor: pointer;
+  font-size: 16px;
 }
 
 div.enemy-wrapper{
