@@ -3,7 +3,7 @@ var app = angular.module('skullBeggar', ['ngResource', 'ui.bootstrap']);
 app.service('skullApi', 
 ['$resource', '$location', '$timeout', '$window',
 function($resource, $location, $timeout, $window){
-  var root = "mystery-works.herokuapp.com";
+  var root = "http://mystery-works.herokuapp.com";
   var channelTimeout = 2000;
   
   var api = {};
