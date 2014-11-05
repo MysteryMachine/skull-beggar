@@ -1,22 +1,29 @@
-<div ng-if="owner && waiting()">
-	<div class="row panel">
-		<div class="col-md-2"></div>
-	
-		<div class="col-md-8 text-center">
-			<p>
-				Once your run is finished, select the outcome of your run
-				below, and click the Complete Betting button.
-			</p>
-		</div>
+<div ng-if="waiting()">
+	<div ng-if="owner">
+		<div class="row panel">
+			<div class="col-md-2"></div>
 		
-		<div class="col-md-2"></div>
+			<div class="col-md-8 text-center">
+				<p>
+					Once your run is finished, select the outcome of your run
+					below, and click the Complete Betting button.
+				</p>
+			</div>
+			
+			<div class="col-md-2"></div>
+		</div>
+		<betting-panel  
+		 enemies="enemies" 
+		 fun="setLoser"
+		 selected="selected"
+		 search="search">
+		</betting-panel>
 	</div>
-	<betting-panel  
-	 enemies="enemies" 
-	 fun="setLoser"
-	 selected="selected"
-	 search="search">
-	</betting-panel>
+	<div ng-if="!owner">
+		The player is currently playing! Go watch them
+		<a href="{{ streamUrl }}" target="_none">here</a>. Bets will
+		resolve once the player has won or lost.
+	</div>
 </div>
  
 <div class="row panel" ng-if="activeChannelAccount() && !waiting()">

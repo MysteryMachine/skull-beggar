@@ -499,7 +499,8 @@ function(){
     { id: 922, name: "Curse Room Door", imgUrl: "images/Penny.png" },
     { id: 923, name: "New Enemy", imgUrl: "images/Penny.png" },
     { id: 924, name: "New Boss", imgUrl: "images/Penny.png" },
-    { id: 925, name: "Other", imgUrl: "images/Penny.png" }
+    { id: 925, name: "Other", imgUrl: "images/Penny.png" },
+    { id: 925, name: "Win", imgUrl: "images/Penny.png" }
   ]
 }]);
 
