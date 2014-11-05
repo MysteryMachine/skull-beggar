@@ -19,10 +19,18 @@
 		 search="search">
 		</betting-panel>
 	</div>
-	<div ng-if="!owner">
-		The player is currently playing! Go watch them
-		<a href="{{ streamUrl }}" target="_none">here</a>. Bets will
-		resolve once the player has won or lost.
+	<div ng-if="!owner" class="row panel">
+		<div class="col-md-2"></div>
+	
+		<div class="col-md-8 text-center">
+			<p>
+				The player is currently playing! Go watch them
+				<a href="{{ streamUrl }}" target="_none">here</a>. Bets will
+				resolve once the player has won or lost.
+			</p>
+		</div>
+		
+		<div class="col-md-2"></div>
 	</div>
 </div>
  
