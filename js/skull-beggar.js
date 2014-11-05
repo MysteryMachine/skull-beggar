@@ -3,7 +3,7 @@ var app = angular.module('skullBeggar', ['ngResource', 'ui.bootstrap']);
 app.service('skullApi', 
 ['$resource', '$location', '$timeout', '$window',
 function($resource, $location, $timeout, $window){
-  var root = "http://localhost:3000";
+  var root = "mystery-works.herokuapp.com";
   var channelTimeout = 2000;
   
   var api = {};
@@ -318,7 +318,7 @@ function(skullApi){
       $scope.donateBlood = donateBlood;
       $scope.bet = bet;
       
-      $scope.rootUrl = "localhost:4000";
+      $scope.rootUrl = "http://mysterymachine.github.io/skull-beggar";
       $scope.streamUrl = "";
     }
   };
@@ -496,7 +496,10 @@ function(){
     { id: 919, name: "Fire", imgUrl: "/images/Penny.png" },
     { id: 920, name: "Red Fire", imgUrl: "/images/Penny.png" },
     { id: 921, name: "Spikes", imgUrl: "/images/Penny.png" },
-    { id: 922, name: "Curse Room Door", imgUrl: "/images/Penny.png" }
+    { id: 922, name: "Curse Room Door", imgUrl: "/images/Penny.png" },
+    { id: 923, name: "New Enemy", imgUrl: "/images/Penny.png" },
+    { id: 924, name: "New Boss", imgUrl: "/images/Penny.png" },
+    { id: 925, name: "Other", imgUrl: "/images/Penny.png" }
   ]
 }]);
 
