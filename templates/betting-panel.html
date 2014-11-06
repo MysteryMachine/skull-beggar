@@ -1,5 +1,5 @@
 <div class="row enemy-wrapper">
-	<div class="col-md-4" ng-repeat="enemy in enemies | filter: search.text">
+	<div class="col-md-4" ng-repeat="enemy in enemies | filter: search.text | filter: search.meta">
 		<div class="enemy-row row" ng-click="fun(enemy, $index)" 
 		 ng-class="$index === selected.index ? 'highlight' : ''">
 			<div class="col-xs-2">

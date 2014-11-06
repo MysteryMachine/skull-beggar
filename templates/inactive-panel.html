@@ -4,7 +4,13 @@
 	<div class="col-md-8 text-center">
 		<div class="bottom-2"> Skull Beggar BETA </div>
 		
-		<p> 
+		<p ng-if="owner" class="bottom-2">
+			You are currently in your channel! If you were linked here by
+			a streamer, please type in the URL they provided you with
+			back into the browser and go visit that page!
+		</p>
+		
+		<p class="bottom-2"> 
 			{{ owner ? "Your" : "This" }} channel is currently in an inactive 
 			state. This means {{ owner ? "you have" : "the streamer has" }} not 
 			yet opted to allow users to bet on
@@ -17,20 +23,16 @@
 			</span>
 		</p>
 		
-		<p>
-			A note! This app is currently "Hella Beta, Yo". It's been rushed so
+		<div class="bottom-2"> Hey You! </div>
+		<p class="bottom-2">
+			This app is currently "Hella Beta, Yo". It's been rushed so
 			it can be out for people to use on the same day Rebirth comes out. This 
-			means stuff is likely broken, and likely to break! I don't have
-			any Rebirth enemies in here, so if you find one, select "New Enemy" and
-			"New Boss" respectively. If you find something I haven't accounted for
-			choose "Other". The search bar is pretty handy to find stuff. Expect
-			shiny new features to be rolled out eventually. Currently, I'm going
-			to iron out all the bugs in the current application and then build
-			some tests for it. After that, shiny new stuff. Good luck! If you
-			find some bugs, private message me on Twitch, I'm MysteryMachineSA.
+			means stuff is likely broken, and likely to break! Check below for more
+			info!
 		</p>
 		
-		<p>
+		<div class="bottom-2"> Summary </div>
+		<p class="bottom-2">
 			In Skull Beggar, the streamer opens betting before beginning
 			a Binding of Isaac game. Users are allowed to place a bet
 			on the enemy they believe will be responsible for the streamer's
@@ -38,6 +40,24 @@
 			the game. The streamer then must close betting, and play the game
 			until they win or lose. If some users guessed correctly, the pot is 
 			split evenly between them. If not, bets are returned to the users.
+		</p>
+		
+		<div class="bottom-2"> Notes </div>
+		<p class="bottom-2">
+			I don't have
+			any Rebirth enemies in here, so if you find one, select "New Enemy" and
+			"New Boss" respectively. If you find something I haven't accounted for
+			choose "Other". The search bar is pretty handy to find stuff. Right now
+			you can type <i>boss</i> or <i>new</i> or <i>suicide</i> in it to find
+			some of the more interesting options.
+		</p>
+		
+		<p class="bottom-2">
+			Expect
+			shiny new features to be rolled out eventually. Currently, I'm going
+			to iron out all the bugs in the current application and then build
+			some tests for it. After that, shiny new stuff. Good luck! If you
+			find some bugs, private message me on Twitch, I'm MysteryMachineSA.
 		</p>
 		
 		<p ng-if="!owner">
