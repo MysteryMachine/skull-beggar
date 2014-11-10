@@ -1,0 +1,33 @@
+<div class="row panel">
+	<div class="col-md-2"></div>
+	
+	<div ng-if="betting" class="col-md-8">
+		<p>
+			You are free to bet on 4 different things. Firstly, you can
+			select the boss you think will end the run. If the caster dies to that 
+			boss, you will win coins. Envy, Greed, etc. count as bosses.
+			 Search for <i>boss</i> to see these.
+		</p>
+		<p> 
+			You can bet on the floor the caster will die on. If the caster dies to a 
+			non-boss, then they should award money to the people who guessed 
+			what floor they would die on. Search for <i>floor</i> to see these.
+			
+		</p>
+		<p>
+			You can also bet on Sucide and Win. On the chance that the player
+			kills themself, or they win, they will award money to people who guessed
+			those two options. Search for <i>Win</i> or <i>Suicide</i>.
+		</p>
+	</div>
+	
+	<div ng-if="!betting" class="col-md-8">
+		<p>
+			If you died to a specific boss, select that boss. If you died to a
+			non-boss enemy, select the floor in which you died. If you killed yourself,
+			select Suicide. If you won, select Win.
+		</p>
+	</div>
+
+	<div class="col-md-2"></div>
+</div>
