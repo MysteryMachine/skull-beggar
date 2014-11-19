@@ -10,18 +10,13 @@ function($resource, $location, $timeout, $window){
   var api = {};
   
   var setOwner = function(){
-    if(this.$scope.loaded){
-      this.$scope.owner = 
-        this.$scope.user.channel_id === this.$scope.channel.id;
-    }  
+    this.$scope.owner = this.$scope.user.name === this.$scope.channelName;
   }.bind(api);
   
   var setChannelDataIntoScope = function(){
-    this.$scope.loaded = loaded();
     this.$scope.streamUrl = 
       "http://www.twitch.tv/" + this.$scope.channel.name;
     this.$scope.streamerName = this.$scope.channel.display_name;
-    setOwner();
   }.bind(api);
   
   // If the channel_id is in the search, load it into the scope
@@ -29,7 +24,11 @@ function($resource, $location, $timeout, $window){
     var name = $location.search()["channel"];
     if(angular.isString(name)){
       this.$scope.channelName = name;
-    } 
+    }
+    else{
+      $location.search("channel", this.$scope.user.name);
+      this.$scope.channelName = this.$scope.user.name;
+    }
   }.bind(api);
   
   // Load the resource into the scope. If the page has
@@ -38,16 +37,15 @@ function($resource, $location, $timeout, $window){
   // redirecting
   var loadUserPass = function(response){
     this.$scope.user = response;
-    this.$scope.loaded = loaded();
+    
+    setChannelName();
     setOwner();
     
-    if(!this.$scope.channelName){
-      if(this.$scope.user.channel_id){
-        loadUsersChannel();
-      }
-      else{
-        createAndLoadUsersChannel();
-      }
+    if(this.$scope.owner && !this.$scope.user.channel_id){
+      createAndLoadUsersChannel();
+    }
+    else{
+      loadChannel();
     }
   }.bind(api);
   
@@ -56,20 +54,25 @@ function($resource, $location, $timeout, $window){
   }.bind(api);
   
   var loadChannelPass = function(response){
+    this.$scope.loaded = loaded();
     this.$scope.channel = response;
     setChannelDataIntoScope();
     $timeout(loadChannel, channelTimeout);
   }.bind(api);
   
   var loadChannelFail = function(response){
-    this.$scope.criticalError = true;
-    $timeout(loadChannel, channelTimeout);
+    if(this.$scope.owner){
+      createAndLoadUsersChannel();
+    }
+    else{
+      $timeout(loadChannel, channelTimeout);
+    }
   }.bind(api);
   
   var createChannelPass = function(response){
     this.$scope.channel = response;
     setChannelDataIntoScope();
-    $location.search("channel", response.name);
+    $timeout(loadChannel, channelTimeout);
   }.bind(api);
   
   // If the load passes, just load resource into the scope,
@@ -78,12 +81,6 @@ function($resource, $location, $timeout, $window){
     this.Channel.get({name: this.$scope.channelName}, 
       loadChannelPass, 
       loadChannelFail);
-  }.bind(api);
-  
-  var loadUsersChannel = function(){
-    $location.search("channel", this.$scope.user.name);
-    this.$scope.channelName = this.$scope.user.name;
-    loadChannel();
   }.bind(api);
   
   // If the creation works, redirect to that channel page, otherwise
@@ -106,7 +103,11 @@ function($resource, $location, $timeout, $window){
   
   api["Omniauth"] = {
     authorize: function(){
-      $window.location = root + "/users/auth/twitch";
+      var origStr = "";
+      if($location.search()["channel"]){
+        origStr = $location.search()["channel"];
+      }
+      $window.location = root + "/users/auth/twitch?origin=" + origStr;
     }
   };
   
@@ -133,9 +134,6 @@ function($resource, $location, $timeout, $window){
   // Does all the initial backend queries
   api["initialize"] = function($scope){
     this.$scope = $scope;
-    
-    setChannelName();
-    if($scope.channelName){ loadChannel(); }
     loadUser();
   };
   
