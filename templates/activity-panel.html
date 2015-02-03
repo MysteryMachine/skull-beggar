@@ -1,6 +1,11 @@
 <div class="row activity-panel">
 	<div class="col-md-9">
-		<div class="row" ng-if="loaded">
+		<div class="row" ng-if="!loaded()">
+			<div class="col-md-12 big-text bottom-12px">
+				Loading
+			</div>
+		</div>
+		<div class="row" ng-if="loaded()">
 			<div class="col-md-4 big-text bottom-12px">
 				<span>
 						{{health()}} / {{maxHealth()}}
